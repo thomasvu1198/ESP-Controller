@@ -1,0 +1,361 @@
+{% extends "Base.html" %}
+{% block content %}
+{% load static %}
+<audio id="xyz" src="{% static 'alert.mp3' %}" preload="auto" autoplay="" muted="muted"></audio>
+<!-- <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+    <strong style="font-size:30px;text-transform:uppercase;display:flex;justify-content:center;align-items:center;">ĐANG
+        BỊ QUÁ NHIỆT!</strong>
+    <button type="button" class="close btn-close" data-dismiss="alert" aria-label="Close">
+    </button>
+</div> -->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary mt-2 ms-2" data-toggle="modal" data-target="#exampleModal">
+    THIẾT LẬP CHẠY
+</button>
+
+<!-- Modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cài đặt hệ thống</h5>
+                <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="config">Tên thiết lập</label>
+                        <input type="text" class="form-control" id="config">
+                    </div>
+                    <div class="form-group">
+                        <label for="use-conf">Lựa chọn thiết lập</label>
+                        <select class="form-control" id="use-conf">
+                            <option value="1">TL1</option>
+                            <option value="2">TL2 </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Tên loại chè</label>
+                        <input type="text" class="form-control" id="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="phase">Công đoạn</label>
+                        <select class="form-control" id="phase">
+                            <option value="1">Diệt men</option>
+                            <option value="2">Sao chè </option>
+                        </select>
+                    </div>
+                    <div class=" row form-group">
+                        <div class="col">
+                            <label for="min_temp">Nhiệt độ min</label>
+                            <input class="form-control" id="min_temp" type="number"></input>
+                        </div>
+                        <div class="col">
+                            <label for="max_temp">Nhiệt độ max</label>
+                            <input class="form-control" id="max_temp" type="number"></input>
+                        </div>
+                    </div>
+                    <div class=" row form-group">
+                        <div class="col">
+                            <label for="time">Thời gian (phút)</label>
+                            <input class="form-control" id="min_temp" type="number"></input>
+                        </div>
+                        <div class="col">
+                            <label for="speed">Tốc độ (RPM)</label>
+                            <input class="form-control" id="speed" type="number"></input>
+                        </div>
+                        <div class="col">
+                            <label for="start">Thời gian bắt đầu</label>
+                            <input class="form-control" id="start" type="time"></input>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="save-config">Lưu thiết lập</button>
+                <button type="button" class="btn btn-primary" id="confirm">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row p-4">
+    <div class="col-lg-6 p-3">
+        <div class="welcome">
+            <div class="rounded-2">
+                <h1 class="fs-3 align-items-center ps-0 ms-0 text-center" style="font-size:1.5rem !important;">
+                    ĐIỀU CHỈNH THÔNG SỐ
+                </h1>
+            </div>
+        </div>
+        <section class="statistics mt-4">
+            <table class="table table-dark">
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <p class="pe-4">Nhiệt độ min</p>
+                        </th>
+                        <td>
+                            <input type="number" style="height: 30px; width: 80px;" id="min-conf">
+                        </td>
+                        <td>
+                            <p class="pe-4">Thời gian chạy</p>
+                        </td>
+                        <td>
+                            <input type="number" style="height: 30px; width: 80px;" id="time-conf">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <p class="pe-4">Nhiệt độ max</p>
+                        </th>
+                        <td> <input type="number" style="height: 30px; width: 80px;;" id="max-conf"></td>
+                        <td>
+                            <p class="pe-4">Tốc độ máy</p>
+                        </td>
+                        <td>
+                            <input type="number" style="height: 30px; width: 80px;;" id="speed-conf">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <input class="btn btn-primary" type="submit" value="Xác nhận" id="submit_conf">
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <div class="box col-sm-4">
+            <div style="background-color: rgb(208, 24, 24);" class="d-flex justify-content-center">
+                <div class="row">
+                    <div class="col">
+                        <p class="text-center" style="color:white">DỪNG KHẨN CẤP</p>
+                        <button type="button" class="btn btn-lg btn-toggle" data-toggle="button" aria-pressed="false"
+                            autocomplete="off" id="danger-btn">
+                            <div class="handle"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="welcome mt-4">
+            <div class="rounded-2">
+                <h1 class="fs-3 align-items-center ps-0 ms-0 text-center" style="font-size:20px !important;">
+                    BIỂU ĐỒ
+                </h1>
+                <a class="btn btn-primary" href="https://docs.google.com/spreadsheets/d/1wKXqwhTxcHB5ZQJiXG3s2wUEZtqcybwE/edit?usp=sharing&ouid=104788515210578811578&rtpof=true&sd=true" role="button">Xuất dữ liệu</a>
+            </div>
+        </div>
+        <section class="statistics mt-4">
+            <div class="chart-container rounded-2 p-3">
+                <canvas id="canvas"></canvas>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-6 p-3">
+        <div class="welcome">
+            <div class="rounded-2">
+                <h1 class="fs-3 align-items-center ps-0 ms-0 text-center" style="font-size:20px !important;">
+                    THÔNG SỐ HOẠT ĐỘNG
+                </h1>
+            </div>
+        </div>
+        <section class="statistics mt-4">
+            <div class="box row">
+                <hr>
+                <div class="col-lg-6">
+                    <div class="rounded-2 align-items-center p-3">
+                        <div class="ms-3">
+                            <div class="d-flex align-items-left">
+                                <p class=" mb-0" style="font-size:21px;" id="tea_name"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="d-flex rounded-2 align-items-center p-3">
+                        <div class="ms-3">
+                            <div class="d-flex align-items-left">
+                                <p class=" mb-0" style="font-size:21px;" id="config_name"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box row">
+                <hr>
+                <div class="col-lg-5">
+                    <div class="d-flex rounded-2 align-items-center p-3">
+                        <i class="uil-clock-five fs-2 text-center bg-success rounded-circle"></i>
+                        <div class="ms-3">
+                            <div class="align-items-left">
+                                <p class="fs-normal mb-0">THỜI GIAN CÀI ĐẶT</p>
+                                <hr>
+                            </div>
+                            <div class="align-items-center">
+                                <h3 class="mb-0" style="font-size:21px;" id="length"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-5">
+                    <div class="d-flex rounded-2 align-items-center p-3">
+                        <i class="uil-clock-seven fs-2 text-center bg-success rounded-circle"></i>
+                        <div class="ms-3">
+                            <div class="align-items-left">
+                                <p class="fs-normal mb-0">THỜI GIAN CÒN LẠI</p>
+                                <hr>
+                            </div>
+                            <div class="align-items-center">
+                                <h3 class="mb-0" style="font-size:21px;" id="time-left"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box row">
+                <hr>
+                <div class="col-lg-4">
+                    <div class="d-flex rounded-2 align-items-center mb-4 mb-lg-0 p-3">
+                        <i class="uil-temperature-half fs-2 text-center bg-primary rounded-circle"></i>
+                        <div class="ms-3">
+                            <div class="align-items-left">
+                                <p class="fs-normal mb-0">NHIỆT ĐỘ</p>
+                                <hr>
+                            </div>
+                            <div class="align-items-center">
+                                <h3 class="mb-0" style="font-size:21px;" id="temp"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="d-flex rounded-2 align-items-center mb-4 mb-lg-0 p-3">
+                        <i class="uil-temperature-half fs-2 text-center bg-danger rounded-circle"></i>
+                        <div class="ms-3">
+                            <div class="align-items-left">
+                                <p class="fs-normal mb-0">ĐỘ ẨM</p>
+                                <hr>
+                            </div>
+                            <div class="align-items-center">
+                                <h3 class="mb-0" style="font-size:21px;" id="humid"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="d-flex rounded-2 align-items-center mb-4 mb-lg-0 p-3">
+                        <i class="uil-bolt fs-2 text-center bg-danger rounded-circle"></i>
+                        <div class="ms-3">
+                            <div class="align-items-left">
+                                <p class="fs-normal mb-0">VÒNG QUAY</p>
+                                <hr>
+                            </div>
+                            <div class="align-items-center">
+                                <h3 class="mb-0" style="font-size:21px;" id="speed_display"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box row">
+                <hr>
+                <div class="col-lg-4">
+                    <div class="d-flex rounded-2 align-items-center p-3">
+                        <i class="uil-battery-bolt fs-2 text-center bg-success rounded-circle"></i>
+                        <div class="ms-3">
+                            <div class="align-items-left">
+                                <p class="fs-normal mb-0">CÔNG SUẤT</p>
+                                <hr>
+                            </div>
+                            <div class="align-items-center">
+                                <h3 class="mb-0" style="font-size:21px;" id="power"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="d-flex rounded-2 align-items-center p-3">
+                        <i class="uil-temperature-minus fs-2 text-center bg-success rounded-circle"></i>
+                        <div class="ms-3">
+                            <div class="align-items-left">
+                                <p class="fs-normal mb-0">NHIỆT ĐỘ MIN</p>
+                                <hr>
+                            </div>
+                            <div class="align-items-center">
+                                <h3 class="mb-0" style="font-size:21px;" id="temp-min"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="d-flex rounded-2 align-items-center p-3">
+                        <i class="uil-temperature-plus fs-2 text-center bg-success rounded-circle"></i>
+                        <div class="ms-3">
+                            <div class="align-items-left">
+                                <p class="fs-normal mb-0">NHIỆT ĐỘ MAX</p>
+                                <hr>
+                            </div>
+                            <div class="align-items-center">
+                                <h3 class="mb-0" style="font-size:21px;" id="max-temp"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="welcome mt-5">
+            <div class="rounded-2">
+                <h1 class="fs-3 align-items-center ps-0 ms-0 text-center" style="font-size:20px !important;">
+                    TRẠNG THÁI HOẠT ĐỘNG
+                </h1>
+            </div>
+        </div>
+        <section class="charts mt-4" id="runningstate">
+            <div class="row mt-3">
+                <svg version="1.1" id="L7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+                    <path fill="green" d="M31.6,3.5C5.9,13.6-6.6,42.7,3.5,68.4c10.1,25.7,39.2,38.3,64.9,28.1l-3.1-7.9c-21.3,8.4-45.4-2-53.8-23.3
+  c-8.4-21.3,2-45.4,23.3-53.8L31.6,3.5z">
+                        <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="2s"
+                            from="0 50 50" to="360 50 50" repeatCount="indefinite" />
+                    </path>
+                    <path fill="green" d="M42.3,39.6c5.7-4.3,13.9-3.1,18.1,2.7c4.3,5.7,3.1,13.9-2.7,18.1l4.1,5.5c8.8-6.5,10.6-19,4.1-27.7
+  c-6.5-8.8-19-10.6-27.7-4.1L42.3,39.6z">
+                        <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s"
+                            from="0 50 50" to="-360 50 50" repeatCount="indefinite" />
+                    </path>
+                    <path fill="green" d="M82,35.7C74.1,18,53.4,10.1,35.7,18S10.1,46.6,18,64.3l7.6-3.4c-6-13.5,0-29.3,13.5-35.3s29.3,0,35.3,13.5
+  L82,35.7z">
+                        <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="2s"
+                            from="0 50 50" to="360 50 50" repeatCount="indefinite" />
+                    </path>
+                    <div class="row mt-3 text-center">
+                        <p class="text-center" style="color:#0392ce; font-size:20px;">ĐANG HOẠT ĐỘNG</p>
+                    </div>
+                </svg>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- <button type="button" class="btn btn-md btn-toggle" data-toggle="button" aria-pressed="false"
+                    autocomplete="off">
+                    <div class="handle"></div>
+                </button> -->
+<script type="text/javascript" src="{% static 'js/utils.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/HomeScript.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+{% endblock %}
+{%block script%}
+
+{% endblock %}

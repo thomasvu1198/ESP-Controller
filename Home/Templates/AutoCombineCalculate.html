@@ -1,0 +1,48 @@
+{% extends "Base.html" %} 
+{% load static %}
+{% block content %}
+<div class="p-4">
+    <div class="welcome">
+        <div class="content rounded-3 p-3">
+            <h1 class="fs-3">Ghép nối tự động - Tính toán</h1>
+        </div>
+    </div>
+    <section class="charts mt-4">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="chart-container rounded-2 p-3">
+                    <h3 class="fs-6 mb-3">Tổng sản lượng điện thu được</h3>
+                    <canvas id="chart1"></canvas>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="chart-container rounded-2 p-3">
+                    <h3 class="fs-6 mb-3">Tổng công suất xả</h3>
+                    <canvas id="chart2"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="charts mt-4">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="chart-container rounded-2 p-3">
+                    <h3 class="fs-6 mb-3">Điện năng tiêu thụ tải</h3>
+                    <canvas id="chart3"></canvas>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="chart-container rounded-2 p-3">
+                    <h3 class="fs-6 mb-3">Tổng sản lượng hòa lưới</h3>
+                    <canvas id="chart4"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock content %}
+
+{% block script %}
+<script type="text/javascript" src="{% static 'js/AutoCombineCalculate.js' %}"></script>
+{% endblock script %}
